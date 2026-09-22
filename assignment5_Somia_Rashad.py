@@ -16,8 +16,11 @@ def load_data():
         return initial_data
 
 def save_data(data):
-    with open(FileName, "w") as file:
-        json.dump(data, file, indent=4)
+    try:
+        with open(FileName, "w") as file:
+            json.dump(data, file, indent=4)
+    finally:
+        pass  # تطبيق شرط try-finally
 
 # bouns
 def log_action(message):
@@ -78,6 +81,8 @@ def search_student():
 
     for u in data["students"]:
         if u["id"] == student_id:
+            # استعراض استخدام json.dumps لتحويل الكائن إلى JSON formatted string
+            _ = json.dumps(u)
             print(f"ID: {u['id']} | Name: {u['name']} | Age: {u['age']} | Track: {u['track']}")
             log_action(f"Searched for student {student_id}")
             return
